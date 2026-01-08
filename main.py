@@ -10,10 +10,28 @@ class Plant:
         return f"I am a {type(self).__name__} and I have {self.energy} energy!" 
 
 
-##########################################
-#       Add your new classes here!       #
-# (Make sure not to accidentally indent) #
-##########################################
+class Potato(Plant):
+    def __init__(self, starting_energy):
+        super().__init__(starting_energy)
+        self.tubers = []
+
+    def sprout_tuber(self):
+        if self.energy > 30:
+            self.tubers.append(Tuber())
+            self.energy -= 30
+
+    def absorb_sunlight(self, sunlight_energy):
+        self.energy += sunlight_energy
+        if len(self.tubers) > 0:
+            energy_for_tuber = sunlight_energy // (len(self.tubers) * 2)
+            for tuber in self.tubers:
+                tuber.energy += energy_for_tuber
+                self.energy -= energy_for_tuber
+
+
+class Tuber:
+    def __init__(self):
+        self.energy = 30
 
 
 ########## WAVE 1 ##########
